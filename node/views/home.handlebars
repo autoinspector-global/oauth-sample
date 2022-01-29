@@ -1,0 +1,64 @@
+<div class="flex flex-col space-y-10 h-full flex items-center justify-center">
+  <div class="flex flex-col text-center">
+    <h1 class="font-semibold text-2xl">Welcome to my marketplace!</h1>
+    <div class="flex flex-col space-y-5">
+      <p>Do you wanna to activate some plugins?</p>
+      <div>
+        <div class="flex flex-row justify-between items-center space-x-2">
+          <div class="flex flex-row items-center space-x-5">
+            <img
+              class="w-12 object-contain rounded-lg"
+              src="/views/assets/autoinspector-avatar.png"
+            />
+            <div class="flex flex-col">
+              <p>Autoinspector</p>
+            </div>
+          </div>
+
+          {{#if isConnected}}
+            <button
+              class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            >
+              Connected
+            </button>
+          {{/if}}
+
+          {{#unless isConnected}}
+            <a
+              href="{{autoinspectorDashboardBaseURL}}/oauth/connect?client_app_id={{client_app_id}}&scopes=memberships&scopes=inspections"
+            >
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              >
+                Connect
+              </button>
+            </a>
+          {{/unless}}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  {{#if isConnected}}
+    <div>
+      <a href="?with_inspections=true">
+        <button
+          class="bg-white text-xs hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+        >
+          Get inspections from a random company
+        </button>
+      </a>
+    </div>
+  {{/if}}
+
+  {{#if inspections}}
+    <ul class="flex flex-col">
+      {{#each inspections}}
+        <li>ID: {{this._id}} - Status: {{this.status}}</li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</div>
